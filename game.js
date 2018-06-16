@@ -1,8 +1,8 @@
 var music = new Audio('./game-music.mp3');
 var highScore = localStorage.getItem('highscore')
 var storedTime = localStorage.getItem('time')
-var time =  !isNaN(storedTime) ? storedTime : 0
-music.currentTime = !isNaN(time) ? parseInt(time, 10) : 1
+var time =  !isNaN(storedTime) ? storedTime : 1
+if (time) music.currentTime = !isNaN(time) ? parseInt(time, 10) : 1
 setInterval(function () { 
   time++
   if (time > 70) {
