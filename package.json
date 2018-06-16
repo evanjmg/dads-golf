@@ -1,0 +1,14 @@
+{
+  "name": "dads-golf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Box2dWeb-2.1.a.3.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

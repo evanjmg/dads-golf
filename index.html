@@ -1,0 +1,158 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Dad's Golf</title>
+      <script src="Box2dWeb-2.1.a.3.min.js"></script>
+    <script src="boxbox.min.js"></script>
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./gif.js"></script>
+    <script type="text/javascript" src="./game.js"></script>
+    <style>
+      svg g rect {
+        fill: white;
+      }
+      .jsgif {
+        position: absolute;
+        bottom: 30px;
+        height: 70%;
+      }
+      .distance {
+        display: block;
+        font-family: monospace;
+        font-size: 30px;
+        margin-left: 25px;
+        margin-top: 25px;
+        color: white;
+        text-shadow: 2px 2px #000;
+      }
+      strong {
+        color: white;
+        text-shadow: 2px 2px #000;
+      }
+      .jsgif canvas {
+        height: 100%;
+      }
+      #top-bar {
+        top: 20px;
+        width: 100%;
+        position: absolute;
+      }
+      .start-menu {
+        padding: 50px;
+        background-image: url('course-pixel.png');
+        background-size: cover;
+        cursor: pointer;
+        display: none;
+        height: 100vh;
+        max-width: 100vw;
+        width: 100vw;
+        position: relative;
+      
+      }
+      .overlay {
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        z-index: 1;
+        background-color: darkgreen;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      #instructions {
+        font-family: monospace;
+        letter-spacing: 2px;
+        font-size: 20px;
+        margin-left: 30px;
+      }
+      #restart {
+        background-color:darkgreen;
+        color: white;
+        border: 2px solid darkgreen;
+      }
+      #golfer {
+        bottom: 50px;
+        position: absolute;
+      }
+      .start-menu > .inner-content > img {
+        position: absolute;
+        bottom: 300px;
+        left: 50%;
+        transform: translateX(-50%) scale(3);
+        z-index: 2;
+      }
+      #game {
+        height: 100vh;
+        width: 100vw;
+      }
+      #on-button {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        outline: 0;
+        background-color: darkred;
+        border: 0;
+        color: white;
+        padding: 20px;
+        border-radius: 50px;
+        font-size: 30px;
+        transform: translate(-50%, -50%);
+        
+      }
+      #title {
+        margin: 0 auto;
+        display: block;
+        max-width: 70%;
+      }
+      .inner-content {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+      #click-here {
+        margin: 30px auto;
+        margin-top: 70px;
+        max-width: 30%;
+        display: block;
+      animation-duration: 3s;
+      animation-delay: 1s;
+      animation-iteration-count: infinite;
+      }
+    </style>
+  </head>
+  <body>
+   
+    <button style="display: none" id="on-button" onclick="turnOn()">TURN ON THE GAME</button>
+    <div id="start-menu" class="start-menu animated fadeIn" onclick="initializeGame()">
+        <div class="overlay"></div>
+        <div class="inner-content">
+        <img src="golfer.gif"/>
+        <svg id="title" class="animated fadeInUpBig" version="1.1" viewBox="0 0 450 70" preserveAspectRatio="xMidYMid meet" aria-labelledby="title" role="img" data-reactid=".0.0.0"><title data-reactid=".0.0.0.0">DAD's Golf </title><g class="character" data-character="d" transform="translate(0, 0)" data-reactid=".0.0.0.1:0"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.0"></rect><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.1"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.2"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.3"></rect><rect x="30" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.4"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.5"></rect><rect x="30" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.6"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.7"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.8"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.9"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.a"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.b"></rect></g><g class="character" data-character="a" transform="translate(50, 0)" data-reactid=".0.0.0.1:1"><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.0"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.1"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.2"></rect><rect x="30" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.3"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.4"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.5"></rect><rect x="20" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.6"></rect><rect x="30" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.7"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.8"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.9"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.a"></rect><rect x="30" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.b"></rect></g><g class="character" data-character="d" transform="translate(100, 0)" data-reactid=".0.0.0.1:2"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.0"></rect><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.1"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.2"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.3"></rect><rect x="30" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.4"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.5"></rect><rect x="30" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.6"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.7"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.8"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.9"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.a"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.b"></rect></g><g class="character" data-character="'" transform="translate(150, 0)" data-reactid=".0.0.0.1:3"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.0"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.1"></rect></g><g class="character" data-character="s" transform="translate(170, 0)" data-reactid=".0.0.0.1:4"><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.0"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.1"></rect><rect x="30" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.2"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.3"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.4"></rect><rect x="20" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.5"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.6"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.7"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.8"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.9"></rect></g><g class="character" data-character=" " transform="translate(220, 0)" data-reactid=".0.0.0.1:5"></g><g class="character" data-character="g" transform="translate(250, 0)" data-reactid=".0.0.0.1:6"><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.0"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.1"></rect><rect x="30" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.2"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.3"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.4"></rect><rect x="20" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.5"></rect><rect x="30" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.6"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.7"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.8"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.9"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:6.a"></rect></g><g class="character" data-character="o" transform="translate(300, 0)" data-reactid=".0.0.0.1:7"><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.0"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.1"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.2"></rect><rect x="30" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.3"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.4"></rect><rect x="30" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.5"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.6"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.7"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.8"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.9"></rect></g><g class="character" data-character="l" transform="translate(350, 0)" data-reactid=".0.0.0.1:8"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.0"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.1"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.2"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.3"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.4"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.5"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.6"></rect></g><g class="character" data-character="f" transform="translate(390, 0)" data-reactid=".0.0.0.1:9"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:9.0"></rect><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:9.1"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:9.2"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:9.3"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:9.4"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:9.5"></rect><rect x="20" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:9.6"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:9.7"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:9.8"></rect></g><g class="character" data-character=" " transform="translate(430, 0)" data-reactid=".0.0.0.1:a"></g></svg>
+        <svg class="animated flash" id="click-here" version="1.1" viewBox="0 0 610 70" preserveAspectRatio="xMidYMid meet" aria-labelledby="title" role="img" data-reactid=".0.0.0"><title data-reactid=".0.0.0.0">click  to start</title><g class="character" data-character="c" transform="translate(0, 0)" data-reactid=".0.0.0.1:0"><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.0"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.1"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.2"></rect><rect x="30" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.3"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.4"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.5"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.6"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.7"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:0.8"></rect></g><g class="character" data-character="l" transform="translate(50, 0)" data-reactid=".0.0.0.1:1"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.0"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.1"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.2"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.3"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.4"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.5"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:1.6"></rect></g><g class="character" data-character="i" transform="translate(90, 0)" data-reactid=".0.0.0.1:2"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.0"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.1"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.2"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.3"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:2.4"></rect></g><g class="character" data-character="c" transform="translate(110, 0)" data-reactid=".0.0.0.1:3"><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.0"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.1"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.2"></rect><rect x="30" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.3"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.4"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.5"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.6"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.7"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:3.8"></rect></g><g class="character" data-character="k" transform="translate(160, 0)" data-reactid=".0.0.0.1:4"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.0"></rect><rect x="30" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.1"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.2"></rect><rect x="20" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.3"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.4"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.5"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.6"></rect><rect x="20" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.7"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.8"></rect><rect x="30" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:4.9"></rect></g><g class="character" data-character=" " transform="translate(210, 0)" data-reactid=".0.0.0.1:5"></g><g class="character" data-character=" " transform="translate(240, 0)" data-reactid=".0.0.0.1:6"></g><g class="character" data-character="t" transform="translate(270, 0)" data-reactid=".0.0.0.1:7"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.0"></rect><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.1"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.2"></rect><rect x="10" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.3"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.4"></rect><rect x="10" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.5"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:7.6"></rect></g><g class="character" data-character="o" transform="translate(310, 0)" data-reactid=".0.0.0.1:8"><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.0"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.1"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.2"></rect><rect x="30" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.3"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.4"></rect><rect x="30" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.5"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.6"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.7"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.8"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:8.9"></rect></g><g class="character" data-character=" " transform="translate(360, 0)" data-reactid=".0.0.0.1:9"></g><g class="character" data-character="s" transform="translate(390, 0)" data-reactid=".0.0.0.1:a"><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.0"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.1"></rect><rect x="30" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.2"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.3"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.4"></rect><rect x="20" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.5"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.6"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.7"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.8"></rect><rect x="20" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:a.9"></rect></g><g class="character" data-character="t" transform="translate(440, 0)" data-reactid=".0.0.0.1:b"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:b.0"></rect><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:b.1"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:b.2"></rect><rect x="10" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:b.3"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:b.4"></rect><rect x="10" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:b.5"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:b.6"></rect></g><g class="character" data-character="a" transform="translate(480, 0)" data-reactid=".0.0.0.1:c"><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.0"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.1"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.2"></rect><rect x="30" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.3"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.4"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.5"></rect><rect x="20" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.6"></rect><rect x="30" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.7"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.8"></rect><rect x="30" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.9"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.a"></rect><rect x="30" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:c.b"></rect></g><g class="character" data-character="r" transform="translate(530, 0)" data-reactid=".0.0.0.1:d"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.0"></rect><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.1"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.2"></rect><rect x="0" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.3"></rect><rect x="30" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.4"></rect><rect x="0" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.5"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.6"></rect><rect x="20" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.7"></rect><rect x="0" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.8"></rect><rect x="20" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.9"></rect><rect x="0" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.a"></rect><rect x="30" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:d.b"></rect></g><g class="character" data-character="t" transform="translate(580, 0)" data-reactid=".0.0.0.1:e"><rect x="0" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:e.0"></rect><rect x="10" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:e.1"></rect><rect x="20" y="10" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:e.2"></rect><rect x="10" y="20" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:e.3"></rect><rect x="10" y="30" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:e.4"></rect><rect x="10" y="40" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:e.5"></rect><rect x="10" y="50" width="10" height="10" fill="rgba(0, 0, 0, 1)" data-reactid=".0.0.0.1:e.6"></rect></g></svg>
+         </div>
+      </div>
+    <div style="display: none" class="game-container">
+      <div id="top-bar">
+      <button id="restart" onclick="restartGame()">
+          Restart Game
+      </button>
+      <strong id="instructions">HOLD AND RELEASE SPACE BAR (DOUBLE TAP TO RESET)</strong>
+       <span class="distance">DISTANCE: <span id="amount">0</span> yards</span>
+      <span class="distance">HIGH SCORE: <span id="high-amount">0</span> yards</span>
+      <span class="distance"> HIT TRAPS: <span id="trap-count">0</span> </span>  
+    </div>
+      <img src="golfer.gif" id="golfer" />
+      <canvas id="game" width=640 height=380>
+        Text that you see if you don't support Canvas :(
+      </canvas>
+    </div>
+  </body>
+</html>
