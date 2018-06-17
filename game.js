@@ -78,8 +78,8 @@ var hitsandtrap = 0
   }
 }
 document.onkeyup = keyup
-$.event.special.tap.emitTapOnTaphold = false;
-$('window').on('tap',function(evt){
+// $.event.special.tap.emitTapOnTaphold = false;
+$('body').on('tap',function(evt){
    keyup(evt)
 }).on('taphold',function(evt){
    keydown(evt)
@@ -157,7 +157,7 @@ world.onRender(function(ctx) {
   }
   else if (p.x - 12 > c.x) {
       if (getValues() === '0px') $('.jsgif').animate({
-        left: -750,
+        left: -900,
       })
       this.camera({x: player.position().x - 12});
   }

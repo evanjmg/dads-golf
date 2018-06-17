@@ -5,6 +5,7 @@
     <title>Dad's Golf</title>
       <script src="Box2dWeb-2.1.a.3.min.js"></script>
     <script src="boxbox.min.js"></script>
+
     <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -15,13 +16,33 @@
       svg g rect {
         fill: white;
       }
+      body {
+        margin: 0;
+        -moz-user-select: none;
+       -khtml-user-select: none;
+       -webkit-user-select: none;
+
+       /*
+         Introduced in IE 10.
+         See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+       */
+       -ms-user-select: none;
+       user-select: none;
+      }
       .jsgif {
         position: absolute;
         bottom: 30px;
         height: 70%;
+
       }
       h1 {
         display: none;
+      }
+      .game-container {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+
       }
       .distance {
         display: block;
@@ -38,6 +59,7 @@
       }
       .jsgif canvas {
         height: 100%;
+        max-width: 85vw;
       }
       #top-bar {
         top: 20px;
@@ -77,8 +99,11 @@
       #restart {
         background-color:darkgreen;
         color: white;
+        font-size: 30px;
+        padding: 20px;
         border: 2px solid darkgreen;
       }
+
       #golfer {
         bottom: 50px;
         position: absolute;
@@ -147,7 +172,7 @@
     <div style="display: none" class="game-container">
       <div id="top-bar">
       <button id="restart" onclick="restartGame()">
-          Restart Game
+          Retry
       </button>
       <strong id="instructions">HOLD AND RELEASE SPACE BAR (DOUBLE TAP TO RESET)</strong>
        <span class="distance">DISTANCE: <span id="amount">0</span> yards</span>
