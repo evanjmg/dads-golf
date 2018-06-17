@@ -3,7 +3,7 @@ var highScore = localStorage.getItem('highscore')
 var storedTime = localStorage.getItem('time')
 var time =  !isNaN(storedTime) ? storedTime : 1
 if (time) music.currentTime = !isNaN(time) ? parseInt(time, 10) : 1
-setInterval(function () { 
+setInterval(function () {
   time++
   if (time > 70) {
     localStorage.setItem('time', String(1))
@@ -12,7 +12,7 @@ setInterval(function () {
 }, 1000)
 $('document').ready(function(){
 if (window.location.hash === '#reload') {
-  
+
     $('#on-button').css('display', 'none')
     setTimeout(initializeGame, 0)
     if (highScore) {
@@ -57,14 +57,14 @@ gif.load(function () {
   })
 });
 gif.pause();
-var count = 0; 
+var count = 0;
 var capturedCount = 0;
 var isPressing = false
 var isMoving = false
 
 var hitsandtrap = 0
 document.onkeyup = function (evt) {
-  if (evt.keyCode == 32 && !isMoving) {
+  if ((evt.keyCode == 32 || window.innerWidth < 500) && !isMoving) {
     gif.pause()
     var swing = new Audio('./golf-swing.mp3')
     swing.play();
@@ -77,11 +77,11 @@ document.onkeyup = function (evt) {
   }
 }
 document.onkeydown = function (evt) {
-  if (evt.keyCode == 32 && !isMoving) {
+  if ((evt.keyCode == 32 || window.innerWidth < 500) && !isMoving) {
     gif.play()
     isPressing = true
     count += 1
-  } else if (evt.keyCode === 32) {
+  } else if (evt.keyCode === 32 || window.innerWidth < 500) {
     world.camera({ x: 0, y: 0 })
     player.position({ x: 1, y: 0 })
     gif.move_to(0)
@@ -129,24 +129,24 @@ function getValues(){
   return $('.jsgif').css('left')
 }
 world.onRender(function(ctx) {
-        
+
   // update camera position every draw
   var p = player.position();
   var c = this.camera();
   var yards = Math.round(p.x)
   $('#amount').text(yards)
-  if (highScore < yards) { 
+  if (highScore < yards) {
     highScore = yards
     localStorage.setItem('highscore', highScore)
     $('#high-amount').text(highScore)
   }
-  if (p.x - 8 < c.x) { 
+  if (p.x - 8 < c.x) {
       if (getValues() !== '0px') $('.jsgif').animate({
         left: 0
       })
       this.camera({x: player.position().x - 8 });
   }
-  else if (p.x - 12 > c.x) { 
+  else if (p.x - 12 > c.x) {
       if (getValues() === '0px') $('.jsgif').animate({
         left: -750,
       })
