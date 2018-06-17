@@ -51,7 +51,11 @@ var gif = new SuperGif({
   progressbar_background_color: 'rgba(255,255,255,0.8)'
 });
 
-gif.load();
+gif.load(function () {
+  $('.jsgif').animate({
+    left: 0,
+  })
+});
 gif.pause();
 var count = 0; 
 var capturedCount = 0;
@@ -99,6 +103,17 @@ for(i; i < 10; i++) {
     active: false,
     y: 4
   })
+  world.createEntity({
+    name: "background",
+    shape: 'square',
+    type: 'static',
+    color: 'rgba(0,100,0, 0.4)',
+    width: 100,
+    height: 20,
+    x: i * 100,
+    active: false,
+    y: 4
+  })
 }
 
 var player = world.createEntity({
@@ -110,6 +125,9 @@ var player = world.createEntity({
   density: 5,
   x: 1,
 });
+function getValues(){
+  return $('.jsgif').css('left')
+}
 world.onRender(function(ctx) {
         
   // update camera position every draw
@@ -123,9 +141,15 @@ world.onRender(function(ctx) {
     $('#high-amount').text(highScore)
   }
   if (p.x - 8 < c.x) { 
-      this.camera({x: player.position().x - 8});
+      if (getValues() !== '0px') $('.jsgif').animate({
+        left: 0
+      })
+      this.camera({x: player.position().x - 8 });
   }
   else if (p.x - 12 > c.x) { 
+      if (getValues() === '0px') $('.jsgif').animate({
+        left: -750,
+      })
       this.camera({x: player.position().x - 12});
   }
 })
