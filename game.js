@@ -34,6 +34,7 @@ function restartGame() {
   window.location.reload()
 }
 function initializeGame() {
+  var isPhone = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
   music.play()
   $('.game-container').css('display', 'block')
   var menu = document.getElementById('start-menu')
@@ -63,8 +64,8 @@ var isPressing = false
 var isMoving = false
 
 var hitsandtrap = 0
-document.onkeyup = function (evt) {
-  if ((evt.keyCode == 32 || window.innerWidth < 500) && !isMoving) {
+ function keyup(evt) {
+  if ((evt.keyCode == 32 || isPhone) && !isMoving) {
     gif.pause()
     var swing = new Audio('./golf-swing.mp3')
     swing.play();
@@ -76,8 +77,15 @@ document.onkeyup = function (evt) {
     isMoving = true
   }
 }
-document.onkeydown = function (evt) {
-  if ((evt.keyCode == 32 || window.innerWidth < 500) && !isMoving) {
+document.onkeyup = keyup
+$.event.special.tap.emitTapOnTaphold = false;
+$('window').on('tap',function(evt){
+   keyup(evt)
+}).on('taphold',function(evt){
+   keydown(evt)
+})
+function keydown (evt) {
+  if ((evt.keyCode == 32 || isPhone) && !isMoving) {
     gif.play()
     isPressing = true
     count += 1
@@ -89,6 +97,7 @@ document.onkeydown = function (evt) {
     restartGame()
   }
 }
+document.onkeydown = keydown
 var i = 0
 for(i; i < 10; i++) {
   world.createEntity({

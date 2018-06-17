@@ -7,7 +7,8 @@
     <script src="boxbox.min.js"></script>
     <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="./gif.js"></script>
     <script type="text/javascript" src="./game.js"></script>
     <style>
@@ -18,6 +19,9 @@
         position: absolute;
         bottom: 30px;
         height: 70%;
+      }
+      h1 {
+        display: none;
       }
       .distance {
         display: block;
@@ -50,7 +54,7 @@
         max-width: 100vw;
         width: 100vw;
         position: relative;
-      
+
       }
       .overlay {
         width: 100%;
@@ -103,7 +107,7 @@
         cursor: pointer;
         font-size: 30px;
         transform: translate(-50%, -50%);
-        
+
       }
       #title {
         margin: 0 auto;
@@ -130,7 +134,7 @@
     </style>
   </head>
   <body>
-   
+
     <button style="display: none" id="on-button" onclick="turnOn()">TURN ON THE GAME</button>
     <div id="start-menu" class="start-menu animated fadeIn" onclick="initializeGame()">
         <div class="overlay"></div>
@@ -148,7 +152,7 @@
       <strong id="instructions">HOLD AND RELEASE SPACE BAR (DOUBLE TAP TO RESET)</strong>
        <span class="distance">DISTANCE: <span id="amount">0</span> yards</span>
       <span class="distance">HIGH SCORE: <span id="high-amount">0</span> yards</span>
-      <span class="distance"> HIT TRAPS: <span id="trap-count">0</span> </span>  
+      <span class="distance"> HIT TRAPS: <span id="trap-count">0</span> </span>
     </div>
       <img src="golfer.gif" id="golfer" />
       <canvas id="game" width=640 height=380>
